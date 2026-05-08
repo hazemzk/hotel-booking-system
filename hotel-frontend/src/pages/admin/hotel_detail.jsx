@@ -72,7 +72,7 @@ export default function AdminHotelDetails() {
                 <p>💰 {r.price}$</p>
                 <p>👥 {r.capacity}</p>
                 <button
-            onClick={() => navigate(`/admin/${hotel.slug}/rooms/edit/${r.number}`)}
+            onClick={() => navigate(`/admin/rooms/edit/${r.id}`)}
             className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded"
           >
             Edit Room

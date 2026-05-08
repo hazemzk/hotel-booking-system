@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 
 export default function EditRoom() {
-  const { hotelSlug, roomId } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [room, setRoom] = useState(null);
@@ -15,7 +15,7 @@ export default function EditRoom() {
   // ===== Fetch Room =====
   const fetchRoom = async () => {
     try {
-      const res = await api.get(`/hotels/rooms/${roomId}`);
+      const res = await api.get(`/hotels/rooms/${id}`);
       setRoom(res.data);
       setForm(res.data);
     } catch (err) {
@@ -25,12 +25,12 @@ export default function EditRoom() {
 
   useEffect(() => {
     fetchRoom();
-  }, [roomId]);
+  }, [id]);
 
   // ===== Update Room =====
   const updateRoom = async () => {
     try {
-      await api.put(`/rooms/${roomId}`, {
+      await api.put(`/rooms/${id}`, {
         number: form.number,
         price: form.price,
         capacity: form.capacity,
@@ -52,7 +52,7 @@ export default function EditRoom() {
         const formData = new FormData();
         formData.append("file", img);
 
-        await api.post(`/hotels/rooms/${roomId}/upload-image`, formData, {
+        await api.post(`/hotels/rooms/${id}/upload-image`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

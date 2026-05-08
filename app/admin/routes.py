@@ -87,3 +87,18 @@ def get_users_with_bookings(
         })
 
     return result
+@router.get("/bookings")
+def get_bookings(db: Session = Depends(get_db)):
+    bookings = db.query(Booking).all()
+
+    return [
+        {
+            "id": b.id,
+            "hotel_name": b.room.hotel.name,
+            "room_number": b.room.number,
+            "check_in": b.check_in,
+            "check_out": b.check_out,
+            "status": b.status
+        }
+        for b in bookings
+    ]

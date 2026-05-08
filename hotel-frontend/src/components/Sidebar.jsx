@@ -41,14 +41,6 @@ function Sidebar() {
             🏠 Home
           </Link>
 
-          <Link
-            to="/admin/hotels"
-            className={`px-4 py-2 rounded-lg ${
-              isActive("/hotels") ? "bg-blue-600 text-white" : "hover:bg-gray-100"
-            }`}
-          >
-            🏨 Hotels
-          </Link>
 
           {/* ADMIN ONLY */}
           {isAdmin && (
@@ -64,6 +56,15 @@ function Sidebar() {
               <Link to="/admin/users" className="px-4 py-2 hover:bg-gray-100 rounded-lg">
                 👥 Users
               </Link>
+              
+              <Link
+                to="/admin/hotels"
+                className={`px-4 py-2 rounded-lg ${
+                  isActive("/hotels") ? "bg-blue-600 text-white" : "hover:bg-gray-100"
+                }`}
+              >
+                🏨 Hotels
+              </Link>
 
               <Link to="/admin/dashboard" className="px-4 py-2 hover:bg-gray-100 rounded-lg">
                 📈 Dashboard
@@ -78,7 +79,7 @@ function Sidebar() {
                 📅 My Bookings
               </Link>
 
-              <Link to="/profile" className="px-4 py-2 hover:bg-gray-100 rounded-lg">
+              <Link to="/profile/:id" className="px-4 py-2 hover:bg-gray-100 rounded-lg">
                 👤 Profile
               </Link>
             </>
