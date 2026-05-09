@@ -1,130 +1,252 @@
-🏨 Hotel Booking System
+# 🏨 Hotel Booking System
 
-A full-featured Hotel Booking System built with FastAPI (Backend) and React (Frontend), designed to manage hotels, rooms, bookings, and users with role-based access control.
+Professional Hotel Booking System built with FastAPI and React.
 
-🚀 Tech Stack
-🔧 Backend
-FastAPI
-SQLAlchemy ORM
-PostgreSQL
-Alembic (Migrations)
-JWT Authentication
-Role-Based Access Control (Admin / Staff / User)
-🎨 Frontend
-React (Vite)
-React Router DOM
-Tailwind CSS
-Axios
-✨ Features
-👤 Authentication
-Register / Login system
-JWT token authentication
-Secure user sessions
-🏨 Hotel Management
-Add / Update / Delete hotels
-Upload hotel images
-Slug-based hotel URLs
-Hotel search & filtering
-🛏️ Room Management
-Add rooms to hotels
-Set price, capacity, availability
-Upload room images
-Add amenities per room
-📅 Booking System
-Book available rooms
-Check-in / Check-out validation
-Prevent overlapping bookings
-Booking status tracking
-🔍 Search System
-Filter by location
-Filter by price range
-Filter by capacity
-Date-based availability search
-🔐 Admin Features
-Manage users
-Manage hotels & rooms
-View all bookings
-🧠 Project Structure
-learn2/
-│
-├── app/
-│   ├── core/
-│   ├── hotels/
-│   ├── bookings/
-│   ├── users/
-│
-├── frontend/
+## 📋 Prerequisites
+
+- Docker & Docker Compose (for local development)
+- Node.js (for local development)
+- Python 3.11+ (for local development)
+
+## 🚀 Quick Start with Docker
+
+### 1. Clone the repository
+```bash
+git clone <repository-url>
+cd learn2
+```
+
+### 2. Create environment file
+```bash
+cp .env.example .env
+```
+
+### 3. Build and run with Docker Compose
+```bash
+docker-compose up --build
+```
+
+The application will be available at:
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
+- **API Docs**: http://localhost:8000/docs
+
+## 🌐 Deployment on Render
+
+### Backend (FastAPI)
+
+1. Create a new **Web Service** on Render.
+2. Connect your GitHub repository.
+3. Set the following settings:
+   - **Runtime**: Python 3
+   - **Build Command**: `pip install -r app/requirements.txt`
+   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+   - **Root Directory**: `app/`
+4. Add environment variables:
+   - `DATABASE_URL`: Your Render PostgreSQL database URL
+   - `SECRET_KEY`: A secure random string
+   - `ALLOWED_ORIGINS`: Your frontend URL (e.g., https://your-frontend.onrender.com)
+   - `MEDIA_DIR`: `media` (or adjust as needed)
+
+### Frontend (React)
+
+1. Create a new **Static Site** on Render.
+2. Connect your GitHub repository.
+3. Set the following settings:
+   - **Build Command**: `npm run build`
+   - **Publish Directory**: `dist`
+   - **Root Directory**: `hotel-frontend/`
+4. Add environment variable:
+   - `VITE_API_BASE_URL`: Your backend URL (e.g., https://your-backend.onrender.com/)
+
+### Database
+
+1. Create a **PostgreSQL** database on Render.
+2. Copy the connection string and use it as `DATABASE_URL` in the backend service.
+
+## 📁 Project Structure
+
+```
+.
+├── app/                    # Backend (FastAPI)
+│   ├── users/             # User management
+│   ├── hotels/            # Hotel management
+│   ├── bookings/          # Booking management
+│   ├── payments/          # Payment processing
+│   ├── admin/             # Admin routes
+│   ├── core/              # Core utilities
+│   ├── main.py            # FastAPI app entry point
+│   ├── Dockerfile         # Backend Docker image
+│   └── entrypoint.sh      # Docker entrypoint script
+├── hotel-frontend/         # Frontend (React + Vite)
 │   ├── src/
-│       ├── pages/
-│       ├── components/
-│       ├── api/
-│
-├── media/
-├── alembic/
-⚙️ Installation
-1️⃣ Backend Setup
-cd backend
-python -m venv env
-source env/bin/activate  # or env\Scripts\activate
-pip install -r requirements.txt
-Run server:
-uvicorn main:app --reload
-2️⃣ Database Setup
+│   │   ├── components/    # React components
+│   │   ├── pages/         # Page components
+│   │   ├── api/           # API utilities
+│   │   └── context/       # React context
+│   ├── public/            # Static assets
+│   ├── package.json       # Dependencies
+│   └── vite.config.js     # Vite configuration
+├── media/                 # Uploaded images
+├── alembic/               # Database migrations
+├── docker-compose.yml     # Docker Compose for development
+├── docker-compose.prod.yml # Docker Compose for production
+├── requirements.txt       # Python dependencies
+└── README.md              # This file
+```
 
-Make sure PostgreSQL is running and update .env:
+## 🧠 Key Highlights
 
-DATABASE_URL=postgresql://user:password@localhost:5432/hotel_db
+- Clean REST API design with FastAPI
+- Role-based access control (Admin, Staff, User)
+- JWT authentication
+- File upload system for images
+- Slug-based SEO URLs
+- Scalable project structure
+- Fully dynamic React frontend with Tailwind CSS
 
-Run migrations:
+## 🚀 Future Improvements
 
-alembic upgrade head
-3️⃣ Frontend Setup
-cd frontend
-npm install
-npm run dev
-🌐 API Endpoints (Examples)
-Hotels
-GET    /hotels/
-POST   /hotels/
-GET    /hotels/{id}
-GET    /hotels/slug/{slug}
-Rooms
-GET    /rooms/{id}
-POST   /hotels/rooms/{hotel_id}
-Bookings
-POST   /bookings/
-GET    /bookings/my
-🔑 Authentication Flow
-User registers or logs in
-JWT token is generated
-Token is stored in localStorage
-Used in API requests for authorization
-📸 Screenshots (Optional)
+- Payment gateway integration
+- Email notifications
+- Real-time booking updates
+- Advanced analytics dashboard
 
-Add screenshots here later:
+## 👨‍💻 Developer
 
-Home page
-Hotel details page
-Booking page
-Admin dashboard
-🧩 Key Highlights
-Clean REST API design
-Slug-based SEO URLs
-Scalable project structure
-Role-based security system
-File upload system for images
-Fully dynamic frontend
-🚀 Future Improvements
-Payment gateway integration
-Email notifications
-Real-time booking updates
-Advanced analytics dashboard
-Docker deployment
-👨‍💻 Developer
+Hazem Mariy Saleheen - Backend Developer (Python / FastAPI)
 
-Hazem Mariy Saleheen
-Backend Developer (Python / Django / FastAPI)
-
-📌 Note
+## 📌 Note
 
 This project is built for learning and portfolio purposes and demonstrates full-stack development skills using modern technologies.
+
+```
+.
+├── app/                    # Backend (FastAPI)
+│   ├── users/             # User management
+│   ├── hotels/            # Hotel management
+│   ├── bookings/          # Booking management
+│   ├── payments/          # Payment processing
+│   ├── admin/             # Admin routes
+│   ├── core/              # Core utilities
+│   ├── main.py            # FastAPI app entry point
+│   ├── Dockerfile         # Backend Docker image
+│   └── entrypoint.sh      # Docker entrypoint script
+├── hotel-frontend/         # Frontend (React + Vite)
+│   ├── src/
+│   │   ├── components/    # React components
+│   │   ├── pages/         # Page components
+│   │   ├── api/           # API client
+│   │   └── main.jsx       # React entry point
+│   ├── Dockerfile         # Frontend Docker image
+│   └── package.json       # Dependencies
+├── docker-compose.yml      # Docker Compose configuration
+├── requirements.txt        # Python dependencies
+└── alembic/               # Database migrations
+
+```
+
+## 🗄️ Database
+
+The application uses PostgreSQL. Database migrations are automatically applied when the container starts.
+
+### Manual Migration (Development)
+```bash
+alembic upgrade head
+```
+
+### Create New Migration
+```bash
+alembic revision --autogenerate -m "Description"
+```
+
+## 🔑 Features
+
+- ✅ User Registration & Authentication
+- ✅ Hotel Management (Admin)
+- ✅ Room Booking
+- ✅ Payment Integration
+- ✅ Admin Dashboard
+- ✅ Responsive UI with Tailwind CSS
+
+## 👥 User Roles
+
+- **Customer**: Can browse hotels and make bookings
+- **Staff**: Can manage hotel and room information
+- **Admin**: Full system access
+
+## 📝 API Documentation
+
+When running, visit `http://localhost:8000/docs` for interactive API documentation (Swagger UI).
+
+## 🛠️ Development
+
+### Local Setup (Without Docker)
+
+**Backend:**
+```bash
+python -m venv env
+source env/bin/activate  # On Windows: env\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+**Frontend:**
+```bash
+cd hotel-frontend
+npm install
+npm run dev
+```
+
+## 🐳 Docker Commands
+
+### Start services
+```bash
+docker-compose up
+```
+
+### Start in background
+```bash
+docker-compose up -d
+```
+
+### Stop services
+```bash
+docker-compose down
+```
+
+### View logs
+```bash
+docker-compose logs -f backend
+docker-compose logs -f frontend
+```
+
+### Rebuild containers
+```bash
+docker-compose up --build
+```
+
+## 📦 Deployment
+
+The application is production-ready. For production deployment:
+
+1. Update environment variables in `.env`
+2. Use a production-grade server (nginx/gunicorn)
+3. Enable HTTPS/SSL
+4. Set proper CORS settings
+5. Use a production database connection
+
+## 🤝 Contributing
+
+1. Create a feature branch
+2. Make your changes
+3. Submit a pull request
+
+## 📄 License
+
+MIT License
+
+## 📧 Contact
+
+For questions or support, please create an issue in the repository.
+>>>>>>> 0f953c0 (Prepare project for Render deployment without Docker)

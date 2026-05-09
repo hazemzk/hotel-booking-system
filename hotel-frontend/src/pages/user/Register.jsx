@@ -7,6 +7,8 @@ import Sidebar from "../../components/Sidebar";
 export default function Register() {
   const [form, setForm] = useState({
     username: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     confirm_password: "",
@@ -55,6 +57,21 @@ export default function Register() {
           name="username"
           placeholder="Username"
           onChange={handleChange}
+          required
+          className="w-full p-3 mb-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+        />
+
+        <input
+          name="first_name"
+          placeholder="First Name"
+          onChange={handleChange}
+          className="w-full p-3 mb-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+        />
+
+        <input
+          name="last_name"
+          placeholder="Last Name"
+          onChange={handleChange}
           className="w-full p-3 mb-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
         />
 
@@ -62,6 +79,7 @@ export default function Register() {
           name="email"
           placeholder="Email"
           onChange={handleChange}
+          required
           className="w-full p-3 mb-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
         />
 
@@ -69,6 +87,7 @@ export default function Register() {
           name="phone"
           placeholder="Phone"
           onChange={handleChange}
+          required
           className="w-full p-3 mb-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
         />
 

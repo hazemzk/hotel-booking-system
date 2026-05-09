@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.database import Base, engine
+from app.core.config import ALLOWED_ORIGINS, MEDIA_DIR
 
 # routers
 from app.users.routes import router as users_router
@@ -23,16 +24,16 @@ app = FastAPI(
 
 
 Base.metadata.create_all(bind=engine)
-app.mount("/media", StaticFiles(directory="media"), name="media")
+app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
+
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 
 app.include_router(users_router)

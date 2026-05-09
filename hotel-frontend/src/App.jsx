@@ -30,9 +30,9 @@ export default function App() {
 
         {/* 👤 USER LAYOUT */}
           <Route path="/" element={<Home />} />
-          <Route path="/hotels/:id" element={<HotelDetails />} />
-          <Route path="/room/:id" element={<RoomDetail />} />
-          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/hotels/:slug" element={<HotelDetails />} />
+          <Route path="/room/:number" element={<RoomDetail />} />
+          <Route path="/profile/:name" element={<Profile />} />
           <Route path="/bookings/my" element={<Bookings />} />
 
         {/* 🛡️ ADMIN LAYOUT */}
@@ -40,9 +40,9 @@ export default function App() {
           <Route path="/admin/bookings" element={<AdminBookings />} />
           <Route path="/admin/hotels" element={<Hotels />} />
           <Route path="/admin/hotels/create" element={<AddHotel />} />
-          <Route path="/admin/hotels/detail/:id" element={<AdminHotelDetails />} />
-          <Route path="/admin/hotels/edit/:id" element={<EditHotel />} />
-          <Route path="/admin/rooms/edit/:id" element={<EditRoom />} />
+          <Route path="/admin/hotels/detail/:slug" element={<AdminHotelDetails />} />
+          <Route path="/admin/hotels/edit/:slug" element={<EditHotel />} />
+          <Route path="/admin/rooms/edit/:number" element={<EditRoom />} />
           <Route path="/admin/users" element={<AdminUsers />} />
 
       </Routes>

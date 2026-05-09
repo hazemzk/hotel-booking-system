@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 
 function RoomDetails() {
-  const { id } = useParams();
+  const { number } = useParams(); // ✅ ده الصح
 
   const [room, setRoom] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,11 +17,13 @@ function RoomDetails() {
 
   const token = localStorage.getItem("token");
 
-  // 🔥 fetch room
+  // ===== Fetch Room =====
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const res = await api.get(`/hotels/rooms/${id}`);
+        console.log("ROOM NUMBER:", number); // debug
+
+        const res = await api.get(`/hotels/rooms/${number}`); // ✅ FIX
         setRoom(res.data);
       } catch (err) {
         console.log(err);
@@ -30,10 +32,12 @@ function RoomDetails() {
       }
     };
 
-    fetchRoom();
-  }, [id]);
+    if (number) {
+      fetchRoom();
+    }
+  }, [number]);
 
-  // 🔥 booking
+  // ===== Booking =====
   const handleBooking = async () => {
     setMessage("");
 
@@ -51,14 +55,9 @@ function RoomDetails() {
       await api.post(
         "/bookings/",
         {
-          room_id: Number(id),
+          room_id: room.id, // ✅ FIX
           check_in: checkIn,
           check_out: checkOut,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }
       );
 

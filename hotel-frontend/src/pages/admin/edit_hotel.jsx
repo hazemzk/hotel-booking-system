@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 
 export default function EditHotel() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
 
   const [hotel, setHotel] = useState(null);
@@ -15,7 +15,7 @@ export default function EditHotel() {
   // ===== Fetch Hotel =====
   const fetchHotel = async () => {
     try {
-      const res = await api.get(`/hotels/${id}`);
+      const res = await api.get(`/hotels/${slug}`);
       setHotel(res.data);
       setForm(res.data);
     } catch (err) {
@@ -25,12 +25,12 @@ export default function EditHotel() {
 
   useEffect(() => {
     fetchHotel();
-  }, [id]);
+  }, [slug]);
 
   // ===== Update Hotel =====
   const updateHotel = async () => {
     try {
-      await api.put(`/hotels/${id}`, {
+      await api.put(`/hotels/${slug}`, {
         name: form.name,
         location: form.location,
         description: form.description,
@@ -49,7 +49,7 @@ export default function EditHotel() {
     const formData = new FormData();
     formData.append("file", file);
 
-    await api.post(`/hotels/${id}/upload-image`, formData, {
+    await api.post(`/hotels/${slug}/upload-image`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

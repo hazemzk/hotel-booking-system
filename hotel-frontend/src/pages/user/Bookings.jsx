@@ -72,7 +72,7 @@ export default function Bookings() {
                 <h2 className="font-semibold text-lg">
                   {booking.hotel_name || "Hotel"}
                 </h2>
-                <p>Room: {booking.room_id}</p>
+                <p>Room: {booking.room_number}</p>
                 <p>From: {booking.check_in}</p>
                 <p>To: {booking.check_out}</p>
                 <p>Status: {booking.status}</p>

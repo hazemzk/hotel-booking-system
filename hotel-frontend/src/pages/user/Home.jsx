@@ -72,7 +72,7 @@ function Home() {
                         className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition"
                       >
                         <img
-                          src={hotel.images?.[0] ? `http://127.0.0.1:8000{hotel.images}` : "https://picsum.photos/400/250"}
+                          src={hotel.images?.[0] ? `http://127.0.0.1:8000${hotel.images[0]}` : "https://picsum.photos/400/250"}
                           alt={hotel.name}
                           className="w-full h-60 object-cover rounded-xl mb-4"
                         />
@@ -95,7 +95,7 @@ function Home() {
                           </p>
 
                           <Link
-                            to={`/hotels/${hotel.id}`}
+                            to={`/hotels/${hotel.slug || hotel.id}`}
                             className="inline-block mt-4 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
                           >
                             View & Book

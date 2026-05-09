@@ -44,21 +44,21 @@ def save_image(file: UploadFile, folder: str):
 
 
 # ================= Upload Hotel Image =================
-@router.post("/{hotel_id}/upload-image")
+@router.post("/{slug}/upload-image")
 def upload_hotel_image(
-    hotel_id: int,
+    slug: str,
     file: UploadFile = File(...),
     user=Depends(require_staff_or_admin),
     db: Session = Depends(get_db)
 ):
 
-    hotel = db.query(Hotel).filter(Hotel.id == hotel_id).first()
+    hotel = db.query(Hotel).filter(Hotel.slug == slug).first()
     if not hotel:
         raise HTTPException(404, "Hotel not found")
 
     path = save_image(file, "media/hotels")
 
-    image = HotelImage(hotel_id=hotel_id, image_url=f"/{path}")
+    image = HotelImage(hotel_id=hotel.id, image_url=f"/{path}")
     db.add(image)
     db.commit()
 
@@ -141,18 +141,15 @@ def create_hotel(
                 room_id=new_room.id,
                 name=amenity
             ))
-    hotel = Hotel(
-        name=hotel.name,
-        location=hotel.location,
-        description=hotel.description,
-    )
-
-    hotel.slug = hotel.generate_slug()
+    
+    # Generate slug before commit
+    new_hotel.slug = new_hotel.generate_slug()
     db.commit()
 
     return {
         "message": "Hotel created successfully",
-        "hotel_id": new_hotel.id
+        "hotel_id": new_hotel.id,
+        "slug": new_hotel.slug
     }
 
 @router.delete("/rooms/images")
@@ -192,10 +189,10 @@ def update_hotel(
     return db_hotel
 
 # ================= Get Hotel =================
-@router.get("/{hotel_id}")
-def get_hotel_details(hotel_id: int, db: Session = Depends(get_db)):
+@router.get("/{slug}")
+def get_hotel_details(slug: str, db: Session = Depends(get_db)):
 
-    hotel = db.query(Hotel).filter(Hotel.id == hotel_id).first()
+    hotel = db.query(Hotel).filter(Hotel.slug == slug).first()
 
     if not hotel:
         raise HTTPException(404, "Hotel not found")
@@ -223,10 +220,10 @@ def get_hotel_details(hotel_id: int, db: Session = Depends(get_db)):
         ]
     }
 # ================= Get Room Details =================
-@router.get("/rooms/{room_id}")
-def get_room_details(room_id: int, db: Session = Depends(get_db)):
+@router.get("/rooms/{room_number}")
+def get_room_details(room_number: str, db: Session = Depends(get_db)):
 
-    room = db.query(Room).filter(Room.id == room_id).first()
+    room = db.query(Room).filter(Room.number == room_number).first()
 
     if not room:
         raise HTTPException(404, "Room not found")
@@ -306,7 +303,8 @@ def search_hotels(
             "id": h.id,
             "name": h.name,
             "location": h.location,
-            "rating": h.rating
+            "rating": h.rating,
+            "slug": h.slug
         }
         for h in hotels
     ]

@@ -5,13 +5,13 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 
 export default function AdminHotelDetails() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [hotel, setHotel] = useState(null);
 
   useEffect(() => {
-    api.get(`/hotels/${id}`).then((res) => setHotel(res.data));
-  }, [id]);
+    api.get(`/hotels/${slug}`).then((res) => setHotel(res.data));
+  }, [slug]);
 
   if (!hotel) return <p className="p-10">Loading...</p>;
 
@@ -28,7 +28,7 @@ export default function AdminHotelDetails() {
           <p className="text-gray-500">{hotel.location}</p>
 
           <button
-            onClick={() => navigate(`/admin/hotels/edit/${id}`)}
+            onClick={() => navigate(`/admin/hotels/edit/${slug}`)}
             className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded"
           >
             Edit Hotel

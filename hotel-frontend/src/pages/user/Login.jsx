@@ -18,6 +18,11 @@ export default function Login() {
   }, [navigate]);
 
   const login = async () => {
+    if (!email || !password) {
+      alert("Please fill in all fields ❌");
+      return;
+    }
+
     try {
       const res = await api.post("/users/login/", {
         email,
@@ -32,7 +37,7 @@ export default function Login() {
       navigate("/");
     } catch (err) {
       console.log(err);
-      alert("Invalid email or password ❌");
+      alert(err.response?.data?.detail || "Invalid email or password ❌");
     }
   };
 

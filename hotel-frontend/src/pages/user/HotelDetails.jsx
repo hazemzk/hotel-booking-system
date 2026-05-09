@@ -7,7 +7,7 @@ import Sidebar from "../../components/Sidebar";
 
 
 function HotelDetails() {
-  const { id } = useParams();
+  const { slug } = useParams();
 
   const [hotel, setHotel] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ function HotelDetails() {
   useEffect(() => {
     const fetchHotel = async () => {
       try {
-        const res = await api.get(`/hotels/${id}`);
+        const res = await api.get(`/hotels/${slug}`);
         setHotel(res.data);
       } catch (err) {
         console.log(err);
@@ -25,7 +25,7 @@ function HotelDetails() {
     };
 
     fetchHotel();
-  }, [id]);
+  }, [slug]);
 
   if (loading) return <div className="text-center p-10">Loading...</div>;
   if (!hotel) return <div className="text-center p-10">Hotel not found</div>;
@@ -111,7 +111,11 @@ function HotelDetails() {
               {/* BOOK BUTTON */}
               <button
                 className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-                onClick={() => navigate(`/room/${room.id}`)}
+                
+                onClick={() =>{ 
+                  console.log("ROOM DATA:", room);
+                  console.log("ROOM NUMBER:", room.number);
+                  navigate(`/room/${room.number}`)}}
               >
                 View Room
               </button>

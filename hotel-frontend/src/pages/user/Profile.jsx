@@ -18,6 +18,8 @@ function Profile() {
       setUser(res.data);
       setForm({
         username: res.data.username || "",
+        first_name: res.data.first_name || "",
+        last_name: res.data.last_name || "",
         email: res.data.email || "",
         phone: res.data.phone || "",
         password: "",
@@ -70,15 +72,24 @@ function Profile() {
 
             <h1 className="text-2xl font-bold mb-6">Profile</h1>
 
-            {/* Username */}
+            {/* First Name */}
             <input
               className="w-full mb-3 p-3 border rounded"
-              placeholder="Username"
-              value={form.username}
+              placeholder="First Name"
+              value={form.first_name}
               onChange={(e) =>
-                setForm({ ...form, username: e.target.value })
-              }
+                setForm({ ...form, first_name: e.target.value })
+              } 
             />
+            {/* Last Name */}
+            <input  
+              className="w-full mb-3 p-3 border rounded"
+              placeholder="Last Name"
+              value={form.last_name}
+              onChange={(e) =>
+                setForm({ ...form, last_name: e.target.value })
+              }
+            />  
 
             {/* Email */}
             <input

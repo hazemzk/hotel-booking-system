@@ -4,11 +4,15 @@ from passlib.context import CryptContext
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
+import os
+from dotenv import load_dotenv
 
 from app.core.database import SessionLocal
 from app.users.models import User
 
-SECRET_KEY = "secret123"
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY", "secret123")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 

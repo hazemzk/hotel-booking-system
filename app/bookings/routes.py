@@ -77,13 +77,35 @@ def create_booking(
 # ===============================
 # 👤 USER: My Bookings
 # ===============================
+from sqlalchemy.orm import joinedload
+from app.hotels.models import Room   # 👈 مهم جدًا
+
 @router.get("/my")
 def get_my_bookings(
     user=Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    return db.query(Booking).filter(Booking.user_id == user.id).all()
+    bookings = (
+        db.query(Booking)
+        .options(
+            joinedload(Booking.room).joinedload(Room.hotel)
+        )
+        .filter(Booking.user_id == user.id)
+        .all()
+    )
 
+    return [
+        {
+            "id": b.id,
+            "hotel_name": b.room.hotel.name,
+            "room_number": b.room.number,
+            "check_in": b.check_in,
+            "check_out": b.check_out,
+            "total_price": b.total_price,
+            "status": b.status.value,
+        }
+        for b in bookings
+    ]
 class BookingStatusUpdate(BaseModel):
     status: BookingStatus
 

@@ -21,8 +21,10 @@ class Hotel(Base):
 
     images = relationship("HotelImage", back_populates="hotel", cascade="all, delete")
     rooms = relationship("Room", back_populates="hotel", cascade="all, delete")
-    def slugify(text):
-        return re.sub(r'[^a-zA-Z0-9]+', '-', text.lower()).strip('-')
+    
+    def generate_slug(self):
+        text = re.sub(r'[^a-zA-Z0-9]+', '-', self.name.lower()).strip('-')
+        return text
 
 # ================= Hotel Images =================
 class HotelImage(Base):

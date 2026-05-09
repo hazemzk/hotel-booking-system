@@ -3,6 +3,8 @@ from pydantic import BaseModel, EmailStr, validator
 
 class UserRegister(BaseModel):
     username: str
+    first_name: str | None = None
+    last_name: str | None = None
     email: EmailStr
     password: str
     confirm_password: str
@@ -21,5 +23,7 @@ class UserLogin(BaseModel):
 
 class UserUpdate(BaseModel):
     username: str | None = None
+    first_name: str | None = None
+    last_name: str | None = None
     email: EmailStr | None = None
     phone: str | None = None

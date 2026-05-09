@@ -34,6 +34,8 @@ def register(user: UserRegister, db: Session = Depends(get_db)):
 
     new_user = User(
         username=user.username,
+        first_name=user.first_name,
+        last_name=user.last_name,
         email=user.email,
         password=hash_password(user.password),
         phone=user.phone,
@@ -68,7 +70,16 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
 
     return {
         "access_token": token,
-        "token_type": "bearer"
+        "token_type": "bearer",
+        "user": {
+            "id": db_user.id,
+            "username": db_user.username,
+            "email": db_user.email,
+            "first_name": db_user.first_name,
+            "last_name": db_user.last_name,
+            "phone": db_user.phone,
+            "role": db_user.role.value
+        }
     }
 
 @router.get("/profile")
