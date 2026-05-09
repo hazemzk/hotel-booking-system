@@ -22,7 +22,10 @@ app = FastAPI(
 )
 
 
+import os
 
+if not os.path.exists(MEDIA_DIR):
+    os.makedirs(MEDIA_DIR)
 Base.metadata.create_all(bind=engine)
 app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
 
