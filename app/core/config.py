@@ -13,7 +13,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
 
 ALLOWED_ORIGINS = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:3000,http://localhost:4173"
+    "http://localhost:3000,http://localhost:4173,https://hotel-booking-f7wh.onrender.com"
 ).split(",")
 
 MEDIA_DIR = os.getenv("MEDIA_DIR", "media")
